@@ -3,9 +3,11 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_trip/dao/home_dao.dart';
 import 'package:flutter_trip/model/common_model.dart';
 import 'package:flutter_trip/model/grid_nav_model.dart';
+import 'package:flutter_trip/model/sales_box_model.dart';
 import 'package:flutter_trip/widget/grid_nav/index.dart';
 import 'package:flutter_trip/widget/local_nav/index.dart';
 import 'package:flutter_trip/widget/sub_nav/index.dart';
+import 'package:flutter_trip/widget/sales_box/index.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,6 +31,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   GridNavModel gridNav;
   // 子导航
   List<CommonModel> subNavList = [];
+
+  SalesBoxModel salesBox;
 
   void initState() {
     super.initState();
@@ -56,6 +60,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
         localNavList = result.localNavList;
         gridNav = result.gridNav;
         subNavList = result.subNavList;
+        salesBox = result.salesBox;
       });
       // print(json.encode(gridNav));
       // 将dart实例转换成json字符串，方便查看
@@ -127,10 +132,18 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                       gridNav: gridNav,
                     ),
                   ),
+                  // 子模块
                   Padding(
                     padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
                     child: SubNav(
                       subNavList: subNavList,
+                    ),
+                  ),
+                  // 
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                    child: SalesBox(
+                      salesBox: salesBox
                     ),
                   ),
                   Container(

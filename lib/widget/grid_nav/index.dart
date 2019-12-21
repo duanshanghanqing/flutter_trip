@@ -71,7 +71,7 @@ class GridNav extends StatelessWidget {
           // 渐变开始颜色，渐变结束颜色
           colors: [
             Color(int.parse('0xff' + gridNavItem.startColor)),
-            Color(int.parse('0xff' + gridNavItem.endColor))
+            Color(int.parse('0xff' + gridNavItem.endColor)),
           ],
         ),
       ),
