@@ -146,37 +146,28 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                       salesBox: salesBox
                     ),
                   ),
-                  Container(
-                    height: 500,
-                    color: Colors.amber[600],
-                    child: FlatButton(
-                      child: Text("获取数据"),
-                      textColor: Colors.blue,
-                      onPressed: () {
-                        loadData();
-                      },
-                    ),
-                  ),
-                  Container(
-                    height: 500,
-                    color: Colors.amber[500],
-                    child: const Center(child: Text('Entry B')),
-                  ),
-                  Container(
-                    height: 500,
-                    color: Colors.amber[100],
-                    child: const Center(child: Text('Entry C')),
-                  ),
+                  // Container(
+                  //   height: 500,
+                  //   color: Colors.amber[600],
+                  //   child: FlatButton(
+                  //     child: Text("获取数据"),
+                  //     textColor: Colors.blue,
+                  //     onPressed: () {
+                  //       loadData();
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
               // 放在后面的会叠在前面的上面
               // Opacity():设置透明度,里面包着一个盒子
               Opacity(
-                opacity: appBarAlpha,
+                opacity: appBarAlpha,// 设置透明度
                 child: Container(
                   height: 80,
                   // 设置装饰颜色
                   decoration: BoxDecoration(color: Colors.white),
+                  // 内容剧中对其
                   child: Center(
                     child: Padding(
                       padding: EdgeInsets.only(top: 20),

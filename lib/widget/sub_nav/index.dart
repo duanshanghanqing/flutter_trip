@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_trip/model/common_model.dart';
+import 'package:flutter_trip/widget/webview/index.dart';
 
 class SubNav extends StatelessWidget {
   final List<CommonModel> subNavList;
@@ -61,7 +62,17 @@ class SubNav extends StatelessWidget {
       flex: 1,
       child: GestureDetector(
         onTap: () {
-          print(123);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WebView(
+                url: item.url,
+                // statusBarColor: gridNavItem.mainItem.statusBarColor,
+                hideAppBar: item.hideAppBar,
+                title: item.title,
+              ),
+            ),
+          );
         },
         child: Column(
           children: <Widget>[

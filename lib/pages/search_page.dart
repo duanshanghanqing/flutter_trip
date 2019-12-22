@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_trip/dao/home_dao.dart';
+import 'package:flutter_trip/widget/seach_bar/index.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -12,27 +10,13 @@ class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: FlatButton(
-          child: Text("获取数据"),
-          textColor: Colors.blue,
-          onPressed: () async {
-            // 使用 Promise 方式
-            // HomeDao.fetch().then((result) {
-            //   print(result.config.searchUrl);
-            // }).catchError((e) {
-            //   print(e.toString());
-            // });
-            try {
-              var result = await HomeDao.fetch();
-              print(result.config.searchUrl);
-              // 将dart实例转换成json字符串，方便查看
-              print(json.encode(result));
-            } catch (e) {
-              print(e.toString());
-            }
-          },
-        ),
+      appBar: AppBar(
+        title: Text('搜索'),
+      ),
+      body: Column(
+        children: <Widget>[
+          SeachBar(),
+        ],
       ),
     );
   }
