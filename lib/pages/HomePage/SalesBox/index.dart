@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_trip/model/sales_box_model.dart';
-import 'package:flutter_trip/widget/webview/index.dart';
+import 'package:flutter_trip/widget/WebView/index.dart';
 
 class SalesBox extends StatelessWidget {
   final SalesBoxModel salesBox;

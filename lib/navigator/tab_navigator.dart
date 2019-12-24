@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_trip/pages/home_page.dart'; // 导入页面
-import 'package:flutter_trip/pages/search_page.dart';
-import 'package:flutter_trip/pages/travel_page.dart';
-import 'package:flutter_trip/pages/my_page.dart';
+import 'package:flutter_trip/pages/HomePage/index.dart'; // 导入页面
+import 'package:flutter_trip/pages/SearchPage/index.dart';
+import 'package:flutter_trip/pages/TravelPage/index.dart';
+import 'package:flutter_trip/pages/MyPage/index.dart';
 
 class TabNavigator extends StatefulWidget {
   @override

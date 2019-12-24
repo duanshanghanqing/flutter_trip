@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_trip/model/grid_nav_model.dart';
-import 'package:flutter_trip/widget/webview/index.dart';
+import 'package:flutter_trip/widget/WebView/index.dart';
 
 // 创建组件
 class GridNav extends StatelessWidget {
