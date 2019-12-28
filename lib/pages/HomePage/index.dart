@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage>
   GridNavModel gridNav;
   // 子导航
   List<CommonModel> subNavList = [];
-
+  // 活动卡片
   SalesBoxModel salesBox;
 
   void initState() {
@@ -75,7 +75,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    SeachBar seachBar = new SeachBar();
     return Scaffold(
       backgroundColor: Color.fromRGBO(245, 245, 245, 1),
       // appBar: AppBar(
@@ -174,11 +173,15 @@ class _HomePageState extends State<HomePage>
               //   ),
               // ),
               Container(
-                height: 80,
+                // height: 80,
                 // 设置装饰颜色,这里动态计算渐变颜色值
-                decoration: BoxDecoration(color: Color.fromRGBO(255,255,255, appBarAlpha)),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(255, 255, 255, appBarAlpha),
+                ),
                 // 内容剧中对其
-                child: seachBar,
+                child: SeachBar(
+                  appBarAlpha: appBarAlpha,
+                ),
               ),
             ],
           ),

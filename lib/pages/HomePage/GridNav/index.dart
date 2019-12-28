@@ -11,8 +11,7 @@ class GridNav extends StatelessWidget {
   // 构造方法
   // @required :注解表示参数是必传的
   // his.name='张三' ：给属性添加默认值
-  const GridNav({Key key, @required this.gridNav, this.name = '张三'})
-      : super(key: key);
+  GridNav({Key key, @required this.gridNav, this.name = '张三'}) : super(key: key);
 
   // 重写build方法
   @override

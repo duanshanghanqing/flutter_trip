@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_trip/widget/seach_bar/index.dart';
+import './SeachBar/index.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class _SearchPageState extends State<SearchPage> with AutomaticKeepAliveClientMi
       ),
       body: Column(
         children: <Widget>[
-          // SeachBar(),
+          SeachBar(appBarAlpha: 1,),
         ],
       ),
     );
