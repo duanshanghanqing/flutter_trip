@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TravelPage extends StatefulWidget {
+  Function switchTab;
+
+  TravelPage({Key key, @required this.switchTab}) : super(key: key);
+
   @override
   _TravelPageState createState() => _TravelPageState();
 }

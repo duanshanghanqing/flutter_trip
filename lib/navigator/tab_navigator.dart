@@ -5,6 +5,10 @@ import 'package:flutter_trip/pages/TravelPage/index.dart';
 import 'package:flutter_trip/pages/MyPage/index.dart';
 
 class TabNavigator extends StatefulWidget {
+  Function switchTab;
+
+  TabNavigator({Key key, @required this.switchTab}) : super(key: key);
+
   @override
   _TabNavigatorState createState() => _TabNavigatorState();
 }
@@ -22,6 +26,16 @@ class _TabNavigatorState extends State<TabNavigator> {
   final _activeColor = Colors.blue;
   // 定义切换页面索引值
   int _currentIndex = 0;
+
+  // 切换界面
+  void switchTab(index) {
+    _controller.jumpToPage(index);
+    // print(index);
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,21 +43,17 @@ class _TabNavigatorState extends State<TabNavigator> {
         controller: _controller,
         children: <Widget>[
           // 存放页面
-          HomePage(),
-          SearchPage(),
-          TravelPage(),
-          MyPage(),
+          HomePage(switchTab: switchTab),
+          SearchPage(switchTab: switchTab),
+          TravelPage(switchTab: switchTab),
+          MyPage(switchTab: switchTab),
         ],
       ),
       // 底部按钮
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
-          _controller.jumpToPage(index);
-          // print(index);
-          setState(() {
-            _currentIndex = index;
-          });
+          switchTab(index);
         },
         type: BottomNavigationBarType.fixed, // 不带缩放动画
         // type: BottomNavigationBarType.shifting, // 带缩放动画，默认

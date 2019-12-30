@@ -11,6 +11,10 @@ import './SeachBar/index.dart';
 import './SubNav/index.dart';
 
 class HomePage extends StatefulWidget {
+  Function switchTab;
+
+  HomePage({Key key, @required this.switchTab}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -181,6 +185,7 @@ class _HomePageState extends State<HomePage>
                 // 内容剧中对其
                 child: SeachBar(
                   appBarAlpha: appBarAlpha,
+                  switchTab: widget.switchTab,
                 ),
               ),
             ],

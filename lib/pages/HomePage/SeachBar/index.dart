@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class SeachBar extends StatefulWidget {
   // 设置透明度
   double appBarAlpha = 0;
-  SeachBar({Key key, @required this.appBarAlpha}) : super(key: key);
+  Function switchTab;
+  SeachBar({Key key, @required this.appBarAlpha, this.switchTab})
+      : super(key: key);
 
   @override
   _SeachBarState createState() => _SeachBarState();
@@ -65,50 +67,54 @@ class _SeachBarState extends State<SeachBar> {
             // 裁剪
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(50.0)), // 圆角
-              child: Container(
-                width: double.infinity, // 撑满
-                height: 30,
-                // 设置装饰器
-                decoration: BoxDecoration(
-                  color: fillColor,
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(3, 3, 3, 3),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.blue,
-                        size: 26,
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: double.infinity, // 撑满
+                  height: 30,
+                  // 设置装饰器
+                  decoration: BoxDecoration(
+                    color: fillColor,
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(3, 3, 3, 3),
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.blue,
+                          size: 26,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1, // 撑满
-                      child: GestureDetector(
-                        onTap: () {
-                          
-                        },
-                        child: Container(
-                          width: double.infinity, // 撑满
-                          // height: double.infinity,
-                          child: Text(
-                            '请输入搜索内容',
-                            style: TextStyle(
-                              color: Color.fromRGBO(105, 105, 105, 1),
-                              fontSize: 16.0,
+                      Expanded(
+                        flex: 1, // 撑满
+                        child: GestureDetector(
+                          onTap: () {
+                            // 点击切换到索引是1的tab搜索页面
+                            widget.switchTab(1);
+                          },
+                          child: Container(
+                            width: double.infinity, // 撑满
+                            // height: double.infinity,
+                            child: Text(
+                              '请输入搜索内容',
+                              style: TextStyle(
+                                color: Color.fromRGBO(105, 105, 105, 1),
+                                fontSize: 16.0,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(3, 3, 3, 3),
-                      child: Icon(
-                        Icons.mic_none,
-                        size: 26,
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(3, 3, 3, 3),
+                        child: Icon(
+                          Icons.mic_none,
+                          size: 26,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

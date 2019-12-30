@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MyPage extends StatefulWidget {
+  Function switchTab;
+
+  MyPage({Key key, @required this.switchTab}) : super(key: key);
+
   @override
   _MyPageState createState() => _MyPageState();
 }
