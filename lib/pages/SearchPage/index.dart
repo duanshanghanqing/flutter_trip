@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_trip/dao/search_model.dart';
 import 'package:flutter_trip/model/seach_model.dart';
 import './SeachBar/index.dart';
+import 'package:flutter_trip/widget/WebView/index.dart';
 
 class SearchPage extends StatefulWidget {
   Function switchTab;
@@ -19,6 +20,7 @@ class _SearchPageState extends State<SearchPage>
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       // appBar: AppBar(
       //   title: Text('搜索'),
@@ -52,14 +54,8 @@ class _SearchPageState extends State<SearchPage>
               // 获取屏幕高度，减去搜索框高度
               height: MediaQuery.of(context).size.height - 125,
               child: ListView(
-                // padding: const EdgeInsets.all(8),
-                // children: <Widget>[
-                //   Container(
-                //     height: 500,
-                //     color: Colors.amber[600],
-                //     child: const Center(child: Text('Entry A')),
-                //   ),
-                // ],
+                // 但是发现ListView无法充满全面，顶部会有一个导航栏宽度的缝隙，应该是自适应屏幕造成，这时只需将ListView的padding属性，设置为：EdgeInsets.only(top: 0) 即可解决问题。
+                padding: EdgeInsets.only(top: 0),
                 children: searchItemlist,
               ),
             ),
@@ -72,10 +68,10 @@ class _SearchPageState extends State<SearchPage>
   void _search(String val) {
     SearchDao.fetch(val).then((SearchModel value) {
       if (value?.data?.length != 0) {
-        print(value.data[0].url);
+        // print(value.data[0].url);
         List<Widget> arr = [];
         value.data.forEach((item) {
-          arr.add(_item(item));
+          arr.add(_item(item, context));
         });
         setState(() {
           searchItemlist = arr;
@@ -84,11 +80,49 @@ class _SearchPageState extends State<SearchPage>
     });
   }
 
-  Widget _item(SearchItem item) {
-    return Container(
-      height: 100,
-      color: Colors.amber[100],
-      child: Center(child: Text(item.url)),
+  Widget _item(SearchItem item, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // print(item.url + 'index');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WebView(
+              url: item.url + 'index',
+              // statusBarColor: gridNavItem.item1.statusBarColor,
+              hideAppBar: true,
+              title: item.word,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        // height: 40,
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+        color: Colors.white,
+        child: Row(
+          children: <Widget>[
+            // Text(item.url),
+            Icon(
+              Icons.search,
+              color: Color.fromRGBO(190, 190, 190, 1),
+              size: 20,
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                child: Text(item.word),
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Color.fromRGBO(190, 190, 190, 1),
+              size: 20,
+            ),
+          ],
+        ),
+      ),
     );
   }
 

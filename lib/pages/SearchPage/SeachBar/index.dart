@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class SeachBar extends StatefulWidget {
   // 点击左测返回按钮点击
@@ -46,6 +47,7 @@ class _SeachBarState extends State<SeachBar> {
 
   @override
   Widget build(BuildContext context) {
+    Timer t;
     return ConstrainedBox(
       constraints: BoxConstraints(
         // 设置输入框宽高
@@ -74,7 +76,7 @@ class _SeachBarState extends State<SeachBar> {
             child: TextField(
                 controller: _controller,
                 autofocus: true,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.black,
                   fontSize: 14.0,
                   textBaseline: TextBaseline.ideographic,
@@ -142,12 +144,23 @@ class _SeachBarState extends State<SeachBar> {
                     text = val;
                   });
                   if (widget.onChage != null) {
-                    widget.onChage(val);
+                    // 处理防抖动
+                    if (t != null) {
+                      t.cancel();
+                      t = null;
+                    }
+                    const timeout = Duration(seconds: 3);
+                    // print('currentTime =' + DateTime.now().toString());
+                    t = Timer(timeout, () {
+                      //到时回调
+                      // print('after 5s Time =' + DateTime.now().toString());
+                      widget.onChage(val);
+                    });
                   }
                 },
                 onSubmitted: (String val) {
                   if (widget.onSearch != null) {
-                    widget.onSearch(text);
+                    widget.onSearch(val);
                   }
                 }),
           ),
