@@ -150,10 +150,7 @@ class _SeachBarState extends State<SeachBar> {
                       t = null;
                     }
                     const timeout = Duration(seconds: 3);
-                    // print('currentTime =' + DateTime.now().toString());
                     t = Timer(timeout, () {
-                      //到时回调
-                      // print('after 5s Time =' + DateTime.now().toString());
                       widget.onChage(val);
                     });
                   }

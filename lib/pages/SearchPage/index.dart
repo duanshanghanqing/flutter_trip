@@ -83,12 +83,13 @@ class _SearchPageState extends State<SearchPage>
   Widget _item(SearchItem item, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // print(item.url + 'index');
+        print(item.url);
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => WebView(
-              url: item.url + 'index',
+              url: item.url,
+              // url: 'https://m.ctrip.com/webapp/hotel/index',
               // statusBarColor: gridNavItem.item1.statusBarColor,
               hideAppBar: true,
               title: item.word,
