@@ -11,14 +11,14 @@ class WebView extends StatefulWidget {
   final bool hideAppBar; // 是否隐藏AppBar
   final bool backForbid; // 返回按钮的控制
 
-  const WebView(
-      {Key key,
-      this.url,
-      this.statusBarColor,
-      this.title,
-      this.hideAppBar,
-      this.backForbid})
-      : super(key: key);
+  const WebView({
+    Key key,
+    this.url,
+    this.statusBarColor,
+    this.title,
+    this.hideAppBar,
+    this.backForbid,
+  }) : super(key: key);
 
   @override
   _WebViewState createState() => _WebViewState();
@@ -68,8 +68,14 @@ class _WebViewState extends State<WebView> {
     String statusBarColor = widget.statusBarColor ?? 'ffffff';
     Color titleColor = statusBarColor == 'ffffff' ? Colors.black : Colors.white;
 
+    // 把不使用https的请求，转换成使用https
+    String url = widget.url;
+    if (!url.startsWith("https", 0)) {
+      url = url.replaceFirst("http", "https");
+    }
+
     return WebviewScaffold(
-      url: widget.url,
+      url: url,
       withZoom: true, // 是否允许缩放
       withLocalStorage: true, // 启用本地存储
       hidden: true, // 默认隐藏
@@ -85,7 +91,6 @@ class _WebViewState extends State<WebView> {
         leading: IconButton(
           icon: Icon(Icons.close),
           onPressed: () {
-            print('home app bar');
             // 点击关闭返回到首页
             Navigator.pop(context);
           },

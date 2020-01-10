@@ -33,7 +33,7 @@ class SeachBar extends StatefulWidget {
 
 class _SeachBarState extends State<SeachBar> {
   final TextEditingController _controller = TextEditingController();
-
+  FocusNode _commentFocus = FocusNode();
   String text = '';
 
   void initState() {
@@ -66,6 +66,7 @@ class _SeachBarState extends State<SeachBar> {
               ),
             ),
             onTap: () {
+              _commentFocus.unfocus();    // 失去焦点
               if (widget.onleftArrowClick != null) {
                 widget.onleftArrowClick();
               }
@@ -75,6 +76,7 @@ class _SeachBarState extends State<SeachBar> {
             flex: 1,
             child: TextField(
                 controller: _controller,
+                focusNode: _commentFocus,
                 autofocus: true,
                 style: TextStyle(
                   color: Colors.black,

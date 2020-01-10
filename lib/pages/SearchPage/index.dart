@@ -3,6 +3,19 @@ import 'package:flutter_trip/dao/search_model.dart';
 import 'package:flutter_trip/model/seach_model.dart';
 import './SeachBar/index.dart';
 import 'package:flutter_trip/widget/WebView/index.dart';
+import 'dart:async';
+
+Function debounce(Function fn, [int t = 30]) {
+  Timer _debounce;
+  return (String val) {
+    // 还在时间之内，抛弃上一次
+    if (_debounce?.isActive ?? false) _debounce.cancel();
+
+    _debounce = Timer(Duration(milliseconds: t), () {
+      fn(val);
+    });
+  };
+}
 
 class SearchPage extends StatefulWidget {
   Function switchTab;
@@ -18,9 +31,11 @@ class _SearchPageState extends State<SearchPage>
   // 搜索列表
   List<Widget> searchItemlist = [];
 
+  // 加载中
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       // appBar: AppBar(
       //   title: Text('搜索'),
@@ -38,10 +53,14 @@ class _SearchPageState extends State<SearchPage>
                 onleftArrowClick: () {
                   widget.switchTab(0);
                 },
-                onChage: (String val) {
-                  // print(val);
+                // onChage: (String val) {
+                //   // print(val);
+                //   _search(val);
+                // },
+                onChage: debounce((String val) {
+                  print(val);
                   _search(val);
-                },
+                }, 200),
                 onSearch: (String val) {
                   _search(val);
                   // print(val);
@@ -49,6 +68,14 @@ class _SearchPageState extends State<SearchPage>
               ),
             ),
             // Text(showText),
+            loading ? 
+            CircularProgressIndicator(
+              strokeWidth: 4.0,
+              backgroundColor: Colors.blue,
+              // value: 1,
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+            )
+            : 
             Container(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               // 获取屏幕高度，减去搜索框高度
@@ -66,6 +93,9 @@ class _SearchPageState extends State<SearchPage>
   }
 
   void _search(String val) {
+    setState(() {
+      loading = true;
+    });
     SearchDao.fetch(val).then((SearchModel value) {
       if (value?.data?.length != 0) {
         // print(value.data[0].url);
@@ -75,6 +105,7 @@ class _SearchPageState extends State<SearchPage>
         });
         setState(() {
           searchItemlist = arr;
+          loading = false;
         });
       }
     });
@@ -83,13 +114,12 @@ class _SearchPageState extends State<SearchPage>
   Widget _item(SearchItem item, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(item.url);
+        // print(item.url);
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => WebView(
               url: item.url,
-              // url: 'https://m.ctrip.com/webapp/hotel/index',
               // statusBarColor: gridNavItem.item1.statusBarColor,
               hideAppBar: true,
               title: item.word,
